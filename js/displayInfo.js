@@ -26,12 +26,24 @@ http.onreadystatechange = function ()
             http.onreadystatechange = function ()
             {
                 if (this.readyState === 4 && this.status === 200) {
-                    let str = "";
-                    JSON.parse(this.responseText).forEach(e => {
-                        let image = window.location.origin + '/data/' + dir + '/' + e;
-                        str += '<a data-lightbox="viewer" href="' + image + '"><img src="' + image + '"/></a>';
-                    });
-                    document.getElementById("menu").innerHTML = str;
+                    let images = JSON.parse(this.responseText);
+                    http = new XMLHttpRequest(); // Get all available files
+                    http.open("GET", "php/getInfoJson.php?folder=" + dir, true);
+                    http.onreadystatechange = function ()
+                    {
+                        if (this.readyState === 4 && this.status === 200) {
+                            let tags = JSON.parse(this.responseText);
+                            let str = "";
+                            images.forEach(e => {
+                                let filename = e.split('.')[0];
+                                let isNsfw = tags["nsfw"].includes(filename);
+                                let image = window.location.origin + '/data/' + dir + '/' + e;
+                                str += '<a data-lightbox="viewer" href="' + image + '"><img ' + (isNsfw ? 'class="nsfw"' : '') + ' src="' + image + '"/></a>';
+                            });
+                            document.getElementById("menu").innerHTML = str;
+                        }
+                    };
+                    http.send(null);
                 }
             };
             http.send(null);

@@ -8,7 +8,7 @@ else
     $allDirs = array();
     $dir = new DirectoryIterator("../data/" . $_GET['folder']);
     foreach ($dir as $fileinfo) {
-        if (!$fileinfo->isDir() && !$fileinfo->isDot()) {
+        if (!$fileinfo->isDir() && !$fileinfo->isDot() && $fileinfo->getFilename() !== "info.json") {
             array_push($allDirs, $fileinfo->getFilename());
         }
     }
