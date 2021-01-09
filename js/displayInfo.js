@@ -8,6 +8,7 @@ http.onreadystatechange = function ()
         JSON.parse(this.responseText).forEach(e => {
             availableFolders.push(e);
         });
+        availableFolders.sort();
 
         let dir = new URL(window.location.href).searchParams.get("dir");
 
