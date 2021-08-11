@@ -43,14 +43,26 @@ async function getImagesAsync(dir)
 
         let info = tags[filename];
         let imageInfo = "";
+        let caption = "";
         if (info !== undefined) { // Information available about the image
             let isNsfw = info.isNsfw === true ? "nsfw" : "";
             let isMeme = info.isMeme === true ? "meme" : "";
 
+            let source = info.source;
+            let comment = info.comment;
+            if (source !== undefined && source !== "") {
+                caption += "<a href='" + source + "'>Source</a>";
+                if (comment !== undefined && comment !== "") {
+                    caption += "<br/>" + comment;
+                }
+            } else if (comment !== undefined && comment !== "") {
+                caption += comment;
+            }
+
             imageInfo = isNsfw + " " + isMeme;
         }
         let image = window.location.origin + '/data/' + dir + '/' + e;
-        str += '<a data-lightbox="viewer" href="' + image + '"><img class="' + imageInfo + '" src="' + image + '"/></a>';
+        str += '<a data-lightbox="viewer" href="' + image + '" data-title="' + caption + '"><img class="' + imageInfo + '" src="' + image + '"/></a>';
     });
     return str;
 }
