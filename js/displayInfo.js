@@ -40,9 +40,17 @@ async function getImagesAsync(dir)
     let str = "";
     images.forEach(e => {
         let filename = e.split('.')[0];
-        let isNsfw = tags["nsfw"].includes(filename);
+
+        let info = tags[filename];
+        let imageInfo = "";
+        if (info !== undefined) { // Information available about the image
+            let isNsfw = info.isNsfw === true ? "nsfw" : "";
+            let isMeme = info.isMeme === true ? "meme" : "";
+
+            imageInfo = isNsfw + " " + isMeme;
+        }
         let image = window.location.origin + '/data/' + dir + '/' + e;
-        str += '<a data-lightbox="viewer" href="' + image + '"><img ' + (isNsfw ? 'class="nsfw"' : '') + ' src="' + image + '"/></a>';
+        str += '<a data-lightbox="viewer" href="' + image + '"><img class="' + imageInfo + '" src="' + image + '"/></a>';
     });
     return str;
 }

@@ -6,3 +6,7 @@ img {
 .nsfw {
     filter: blur(15px);
 }
+
+.meme {
+    border: 1px rgb(95, 95, 255) solid;
+}
