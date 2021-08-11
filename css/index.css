@@ -8,5 +8,14 @@ img {
 }
 
 .meme {
-    border: 1px rgb(95, 95, 255) solid;
+    border: 2px rgb(95, 95, 255) solid;
+}
+
+.manga {
+    border: 2px rgb(95, 255, 95) solid;
+}
+
+.manga.meme {
+    outline: 2px dashed rgb(95, 95, 255);
+    box-shadow: 0 0 0 1px rgb(95, 255, 95);
 }

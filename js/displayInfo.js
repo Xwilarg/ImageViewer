@@ -47,6 +47,7 @@ async function getImagesAsync(dir)
         if (info !== undefined) { // Information available about the image
             let isNsfw = info.isNsfw === true ? "nsfw" : "";
             let isMeme = info.isMeme === true ? "meme" : "";
+            let isManga = info.isManga === true ? "manga" : "";
 
             let source = info.source;
             let comment = info.comment;
@@ -59,7 +60,7 @@ async function getImagesAsync(dir)
                 caption += comment;
             }
 
-            imageInfo = isNsfw + " " + isMeme;
+            imageInfo = isNsfw + " " + isMeme + " " + isManga;
         }
         let image = window.location.origin + '/data/' + dir + '/' + e;
         str += '<a data-lightbox="viewer" href="' + image + '" data-title="' + caption + '"><img class="' + imageInfo + '" src="' + image + '"/></a>';
